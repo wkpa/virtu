@@ -1,0 +1,31 @@
+<div class="card" >
+  <ul class="text-left list-inline py-3">
+    <li class="list-inline-item"><a routerLink="/addagreement" class="btn btn-info">Создать договор</a></li>
+  </ul>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Действия</th>
+        <th scope="col">Номер</th>
+        <th scope="col">Дата заключения</th>
+        <th scope="col">Страхователь</th>
+        <th scope="col">Премия</th>
+        <th scope="col">Срок действия</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let agreement of agreements">
+        <td>
+          <button type="button" class="btn btn-info" (click)="editAgreement()">Изменить</button>
+        </td>
+        <td>{{ agreement.agreementNumber }}</td>
+        <td>{{ agreement.agreementDate | date:'dd.MM.yyyy' }}</td>
+        <td>{{ agreement.client.surname }} {{ agreement.client.name }} {{ agreement.client.patronymic }}</td>
+        <td>{{ agreement.calculationResult.insurancePremium }}</td>
+        <td>{{ agreement.calculationData.periodFrom | date:'dd.MM.yyyy' }} - {{agreement.calculationData.periodTo | date:'dd.MM.yyyy' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

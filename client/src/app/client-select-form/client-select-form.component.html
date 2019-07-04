@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-body">
+
+    <div class="form-row">
+      <div class="col">
+        <input type="text" [(ngModel)]="client.surname"
+               class="form-control"
+               placeholder="Фамилия">
+      </div>
+      <div class="col">
+        <input type="text" [(ngModel)]="client.name"
+               class="form-control"
+               placeholder="Имя">
+      </div>
+      <div class="col">
+        <input type="text" [(ngModel)]="client.patronymic"
+               class="form-control"
+               placeholder="Отчество">
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-light" (click)="find()">Найти</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">ФИО</th>
+          <th scope="col">Дата рождения</th>
+          <th scope="col">Паспорт серия/номер</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let client of clients">
+          <td>{{ client.surname }} {{ client.name }} {{ client.patronymic }}</td>
+          <td>{{ client.birthday | date:'dd.MM.yyyy' }}</td>
+          <td>{{ client.passportSeries }} / {{ client.passportSeries }}</td>
+          <td>
+            <button type="button" class="btn btn-light" (click)="selectClient(client)">Выбрать</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

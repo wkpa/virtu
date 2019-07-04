@@ -1,0 +1,260 @@
+<div class="card">
+  <div class="card-body">
+    <div class="card">
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" #calculateForm="ngForm">
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                <label for="insurancePayment">Страховая сумма</label>
+                <input type="text" [(ngModel)]="agreement.calculationData.insurancePayment"
+                       class="form-control" id="insurancePayment"
+                       name="insurancePayment"
+                       placeholder="Введите страховую сумму"
+                       required #insurancePayment="ngModel">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="periodFrom">Срок действия с</label>
+                <input type="date" [(ngModel)]="agreement.calculationData.periodFrom"
+                       class="form-control" id="periodFrom"
+                       name="periodFrom"
+                       placeholder="Введите дату начала"
+                       required #periodFrom="ngModel">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="periodTo">по</label>
+                <input type="date" [(ngModel)]="agreement.calculationData.periodTo"
+                       class="form-control" id="periodTo"
+                       name="periodFrom"
+                       placeholder="Введите дату окончания"
+                       required #periodTo="ngModel">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="assetKind">Тип недвижимости</label>
+
+            <!--            <select #assetKindId-->
+            <select [(ngModel)]="selectedAssetKind"
+                    class="custom-select"
+                    aria-label="Тип недвижимости"
+                    name="assetKind"
+                    id="assetKind"
+                    required #assetKind="ngModel">
+              <option [value]="assetKind.id" *ngFor="let assetKind of assetKinds">{{assetKind.name}}</option>
+            </select>
+
+          </div>
+
+          <div class="form-group">
+            <label for="yearOfBuild">Год постройки</label>
+            <input type="text" [(ngModel)]="agreement.calculationData.yearOfBuild"
+                   class="form-control" id="yearOfBuild"
+                   name="insurancePayment"
+                   placeholder="Введите год постройки"
+                   required #yearOfBuild="ngModel">
+          </div>
+
+          <div class="form-group">
+            <label for="area">Площадь, кв.м.</label>
+            <input type="text" [(ngModel)]="agreement.calculationData.area"
+                   class="form-control" id="area"
+                   name="area"
+                   placeholder="Введите площадь"
+                   required #area="ngModel">
+          </div>
+
+          <div class="form-group text-center">
+            <button type="button" [disabled]="!calculateForm.form.valid"
+                    class="btn btn-info" (click)="calculate()">Рассчитать
+            </button>
+          </div>
+
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                <label for="calculationDate">Дата расчета</label>
+                <input type="date" [(ngModel)]="agreement.calculationResult.calculationDate"
+                       class="form-control" id="calculationDate"
+                       name="calculationDate" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="insurancePremium">Премия</label>
+                <input type="text" [(ngModel)]="agreement.calculationResult.insurancePremium"
+                       class="form-control" id="insurancePremium"
+                       name="insurancePremium" readonly>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #agreementForm="ngForm">
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="agreementNumber">Номер договора</label>
+              <input type="text" [(ngModel)]="agreement.agreementNumber"
+                     class="form-control" id="agreementNumber"
+                     name="agreementNumber"
+                     placeholder="Введите номер договора"
+                     required #agreementNumber="ngModel">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="agreementDate">Дата договора</label>
+              <input type="date" [(ngModel)]="agreement.agreementDate"
+                     name="agreementDate"
+                     class="form-control" id="agreementDate" readonly>
+            </div>
+          </div>
+        </div>
+
+        <h4>СТРАХОВАТЕЛЬ</h4>
+
+        <div class="form-row">
+          <div class="col align-bottom">
+            <button type="button" class="btn btn-warning" (click)="selectClient()">Выбрать</button>
+          </div>
+          <div class="col">
+            <div class="input-group">
+              <input type="text" [(ngModel)]="agreement.client.surname" class="form-control"
+                     name="clientSurname " readonly>
+              <input type="text" [(ngModel)]="agreement.client.name" class="form-control"
+                     name="clientName" readonly>
+              <input type="text" [(ngModel)]="agreement.client.patronymic" class="form-control"
+                     name="clientPatronymic" readonly>
+            </div>
+          </div>
+<!--          <div class="col">-->
+<!--            <button type="button" class="btn btn-warning" (click)="editClient()">Изменить</button>-->
+<!--          </div>-->
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="birthday">Дата рождения</label>
+              <input type="date" [(ngModel)]="agreement.client.birthday"
+                     class="form-control" id="birthday" name="birthday" readonly>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="passportSeries">Паспорт серия</label>
+              <input type="text" [(ngModel)]="agreement.client.passportSeries"
+                     class="form-control" id="passportSeries" name="passportSeries" readonly>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="passportNumber">Паспорт номер</label>
+              <input type="text" [(ngModel)]="agreement.client.passportNumber"
+                     class="form-control" id="passportNumber" name="passportNumber" readonly>
+            </div>
+          </div>
+        </div>
+
+        <h5>Адрес недвижимости</h5>
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="country">Страна</label>
+              <input type="text" [(ngModel)]="agreement.address.country"
+                     class="form-control" id="country" name="country"
+                     required #country="ngModel">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="postIndex">Индекс</label>
+              <input type="text" [(ngModel)]="agreement.address.postIndex"
+                     class="form-control" id="postIndex" name="postIndex">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="region">Республика, край, область</label>
+              <input type="text" [(ngModel)]="agreement.address.region"
+                     class="form-control" id="region" name="region"
+                     required #region="ngModel">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="zone">Район</label>
+              <input type="text" [(ngModel)]="agreement.address.zone"
+                     class="form-control" id="zone" name="zone">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="city">Населенный пункт</label>
+              <input type="text" [(ngModel)]="agreement.address.city"
+                     class="form-control" id="city" name="city">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="street">Улица</label>
+              <input type="text" [(ngModel)]="agreement.address.street"
+                     class="form-control" id="street" name="street">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="building">Дом</label>
+              <input type="text" [(ngModel)]="agreement.address.building"
+                     class="form-control" id="building" name="building">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="apartment">Квартира</label>
+              <input type="text" [(ngModel)]="agreement.address.apartment"
+                     class="form-control" id="apartment" name="apartment">
+            </div>
+          </div>
+        </div>
+
+        <h4>КОММЕНТАРИЙ</h4>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Комментарий к договору (не печатается на полисе)</span>
+          </div>
+          <textarea class="form-control"></textarea>
+        </div>
+
+
+        <button type="button" [disabled]="!agreementForm.form.valid"
+                class="btn btn-info" (click)="save()">Сохранить
+        </button>
+
+      </form>
+    </div>
+
+
+  </div>
+</div>
+
