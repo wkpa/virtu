@@ -7,6 +7,7 @@ import ru.xkpa.virtu.client.Client;
 import ru.xkpa.virtu.common.BaseObjectId;
 import ru.xkpa.virtu.validators.AgreementNumber;
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -56,7 +57,7 @@ public class Agreement extends BaseObjectId {
         this.client = client;
     }
 
-    @NotNull
+    @Valid
     public Address getAddress() {
         return address;
     }
@@ -65,6 +66,7 @@ public class Agreement extends BaseObjectId {
         this.address = address;
     }
 
+    @Valid
     public CalculationData getCalculationData() {
         return calculationData;
     }
@@ -73,6 +75,7 @@ public class Agreement extends BaseObjectId {
         this.calculationData = calculationData;
     }
 
+    @Valid
     public CalculationResult getCalculationResult() {
         return calculationResult;
     }
